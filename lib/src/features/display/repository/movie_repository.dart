@@ -8,8 +8,11 @@ class MovieRepository {
   final String _apiKey = 'a985fcf8dcc3142bef97bdd19d65dcb5';
   final String _apiUrl = 'https://api.themoviedb.org/3';
 
+   MovieRepository();
+   
   Future<List<Movie>> fetchMovies() async {
     try {
+     
       final response =
           await http.get(Uri.parse('$_apiUrl/movie/popular?api_key=$_apiKey'));
 
@@ -27,7 +30,7 @@ class MovieRepository {
         throw HttpException('Failed to load movies: ${response.reasonPhrase}');
       }
     } catch (e) {
-      print('mms');
+    
       if (e is HttpException || e is JsonParsingException) {
         throw e;
         

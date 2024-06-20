@@ -16,6 +16,7 @@ class MovieCubit extends Cubit<MovieState> {
     try {
       emit(MovieState.loading());
       final movies = await movieRepository.fetchMovies();
+       
       emit(MovieState.loaded(movies: movies));
     } 
     on NetworkException catch (e) {
@@ -23,6 +24,7 @@ class MovieCubit extends Cubit<MovieState> {
     } on HttpException catch (e) {
       emit(MovieState.error(message: 'Failed to fetch movies: ${e.toString()}'));
     } on JsonParsingException catch (e) {
+      
       emit(MovieState.error(message: 'Failed to fetch movies: ${e.toString()}'));
     }catch (e) {
       emit(MovieState.error(message: 'Failed to fetch movies: ${e.toString()}'));
